@@ -19,6 +19,7 @@
 <script>
 import { defineComponent, ref, onMounted } from "vue";
 import postsService from "src/services/posts";
+import { useQuasar } from "quasar";
 
 export default defineComponent({
   name: "IndexPage",
@@ -43,6 +44,7 @@ export default defineComponent({
       },
       { name: "actions", field: "actions", label: "Ações", align: "right" },
     ];
+    const $q = useQuasar();
 
     onMounted(() => {
       getPosts();
@@ -59,11 +61,26 @@ export default defineComponent({
 
     const handleDeletePost = async (id) => {
       try {
-        await remove(id);
-        alert("Apagado com sucesso");
-        await getPosts();
+        $q.dialog({
+          title: "Deletar",
+          message: "Deseja deletar este post?",
+          cancel: true,
+          persistent: true,
+        }).onOk(async () => {
+          await remove(id);
+          $q.notify({
+            message: "Apagado com sucesso",
+            icon: "check",
+            color: "positive",
+          });
+          await getPosts();
+        });
       } catch (error) {
-        alert(error);
+        $q.notify({
+          message: "Erro ao apagar post",
+          icon: "check",
+          color: "positive",
+        });
       }
     };
 
