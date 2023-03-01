@@ -1,0 +1,16 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Curso Quasar Crud",
+      "author": "Jorge Almeida",
+      "content": "Esse é um artigo sobre Vue 3, Quasar e API REST"
+    },
+    {
+      "title": "Curso Vue 3",
+      "content": "Curso sobre Vue 3",
+      "author": "Jorge Almeida",
+      "id": 2
+    }
+  ]
+}
